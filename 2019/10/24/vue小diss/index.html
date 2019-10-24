@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="vue computed用法之一 template里面绑定{{text}}  computed: {     text() {       return this.type == 0 ? `下单成功，请拨打电话${this.mobile}` : &amp;apos;交付成功！&amp;apos;     }   }  vuex简单使用   store文件下-   1.action.js – 操作行为处理模块,由c">
+<meta name="keywords" content="前端,web开发,php,vue,node,广交朋友,欢迎交流!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="computed用法,vuex简单使用">
+<meta property="og:url" content="http://yoursite.com/2019/10/24/vue小diss/index.html">
+<meta property="og:site_name" content="王相的个人博客">
+<meta property="og:description" content="vue computed用法之一 template里面绑定{{text}}  computed: {     text() {       return this.type == 0 ? `下单成功，请拨打电话${this.mobile}` : &amp;apos;交付成功！&amp;apos;     }   }  vuex简单使用   store文件下-   1.action.js – 操作行为处理模块,由c">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-19T14:20:56.217Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="computed用法,vuex简单使用">
+<meta name="twitter:description" content="vue computed用法之一 template里面绑定{{text}}  computed: {     text() {       return this.type == 0 ? `下单成功，请拨打电话${this.mobile}` : &amp;apos;交付成功！&amp;apos;     }   }  vuex简单使用   store文件下-   1.action.js – 操作行为处理模块,由c">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/24/vue小diss/">
+
+
+
+
+
+  <title>computed用法,vuex简单使用 | 王相的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">王相的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">时间不负有心人</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/24/vue小diss/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WangXiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王相的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">computed用法,vuex简单使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-24T17:56:53+08:00">
+                2019-10-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="vue"><a href="#vue" class="headerlink" title="vue"></a>vue</h3><ul>
+<li><p>computed用法之一</p>
+<pre><code>template里面绑定{{text}}
+ computed: {
+    text() {
+      return this.type == 0 ? `下单成功，请拨打电话${this.mobile}` : &apos;交付成功！&apos;
+    }
+  }
+</code></pre></li>
+<li><p>vuex简单使用</p>
+<p>  store文件下-</p>
+<p>  1.action.js – 操作行为处理模块,由commit()来触发mutation的调用 , 间接更新 state</p>
+<pre><code>const actions = {
+  token({commit},value) {
+    commit(&quot;TOKEN&quot;, value)
+  }
+}
+export default actions
+</code></pre><p>  2.mutations.js – commit：状态改变提交操作方法。对mutation进行提交，是唯一能执行mutation的方法。</p>
+<pre><code>const mutations = {
+ TOKEN(state, value){  //存储token
+    state.token = value
+    localStorage.setItem(&apos;token&apos;,value)
+  },
+  }
+export default mutations
+</code></pre><p>  3.state.js – 集中存储Vue components中data对象的零散数据,页面显示所需的数据从该对象中进行读取</p>
+<pre><code>const state = {
+     token: localStorage.getItem(&apos;token&apos;) ? localStorage.getItem(&apos;token&apos;) : &apos;&apos;,
+   }
+ export default state
+</code></pre><p>  4.getters.js – state对象读取方法。类似于计算属性 会随着state里面的数据变化而变化</p>
+<pre><code>export const token = state =&gt; state.token
+</code></pre><p>  5.store.js</p>
+<pre><code>import Vue from &apos;vue&apos;
+import Vuex from &apos;vuex&apos;
+import state from &apos;./state&apos;
+import mutations from &apos;./mutations&apos;
+import actions from &apos;./actions&apos;
+import * as getters from &apos;./getters&apos;
+
+Vue.use(Vuex)
+export default new Vuex.Store({
+  state,
+  mutations,
+  actions,
+  getters
+})
+</code></pre></li>
+<li><p>页面引入  </p>
+<pre><code>import { mapMutations } from &quot;vuex&quot;;
+ methods: {
+    ...mapMutations([&quot;CHOOSE_ADDRESS&quot;]),
+ add(){
+   this.CHOOSE_ADDRESS(item);
+  }
+ }
+</code></pre></li>
+</ul>
+<h3 id="vuex-第二种使用"><a href="#vuex-第二种使用" class="headerlink" title="vuex 第二种使用"></a>vuex 第二种使用</h3><ul>
+<li>比如后台管理系统 切换主题色</li>
+</ul>
+<ol>
+<li><p>store文件下 新建modules文件夹 和 index.js</p>
+<ul>
+<li>index.js中<br>import Vue from ‘vue’<br>import Vuex from ‘vuex’<br>import theme from ‘./modules/theme’<br>Vue.use(Vuex)<br>export default new Vuex.Store({<br>  modules: {<pre><code>theme
+</code></pre>  }<br>})</li>
+</ul>
+</li>
+<li><p>modules&gt;theme.js文件中 </p>
+<p>   //1.存储组件中data对象的数据 页面需要调用的时候 从该对象中读取</p>
+<pre><code>const state = { 
+themeColor: &apos;409eff&apos;,
+themeData: [{
+  id: 0,
+  value: &apos;409eff&apos;,
+  text: &apos;默认&apos;
+}, {
+  id: 1,
+  value: &apos;fc7167&apos;,
+  text: &apos;珊瑚红&apos;
+}]
+</code></pre><p>   }<br> //2. state对象的读取方法<br> const getters = {<br>   themeColor (state) {</p>
+<pre><code>if (getTheme()) {
+  state.themeColor = getTheme()
+}
+return state.themeColor
+</code></pre><p>   }<br> }<br> //简写 const getters = { themeColor = state =&gt; state.themeColor}<br> //3. mutations 具体业务逻辑 由actions中的commit触发调用<br> const mutations = {<br>   THEME_COLOR(state,value){</p>
+<pre><code>state.themeColor = value
+</code></pre><p>   }<br> }<br> //4.actions  所有的方法 的commit触发mutations的调用 ,间接更新state</p>
+<pre><code>const actions = {
+  theme_color({commit},value){
+    commit(&quot;CHOOSE_ADDRESS&quot;, value)
+  }
+}
+
+export default {
+state,
+getters,
+actions,
+mutations
+</code></pre><p>   }</p>
+<h3 id="get-post-封装"><a href="#get-post-封装" class="headerlink" title="get post 封装"></a>get post 封装</h3></li>
+<li><p>引入</p>
+<pre><code>import axios from &apos;axios&apos;
+import qs from &apos;qs&apos;
+const http = {
+  get(url, params) {
+    return axios({
+      method: &apos;get&apos;,
+      url,
+      params,
+      headers: {
+        token: getStore(&apos;token&apos;) || &apos;&apos;,
+        worktoken: getStore(&apos;worktoken&apos;) || &apos;&apos;
+      }
+    })
+      .then(res =&gt; {
+        if (res.data.code == 1) {
+          return res.data
+        } else if (res.data.code == 4007) {
+          clearStore(res.data.msg, &apos;/&apos;)
+        } else {
+          vue.$toast(res.data.msg)
+          return res.data
+        }
+      })
+      .catch(err =&gt; {
+        clearStore(err.msg, &apos;/&apos;)
+      })
+  },
+  post(url, data, especial = false) {
+    if (url !== &apos;/api/common/upload&apos;) {
+      data = qs.stringify(data)
+    }
+    return axios({
+      method: &apos;post&apos;,
+      url,
+      data,
+      headers: {
+        token: getStore(&apos;token&apos;) || &apos;&apos;,
+        worktoken: getStore(&apos;worktoken&apos;) || &apos;&apos;
+      }
+    })
+      .then(res =&gt; {
+        if (especial) {
+          return res.data
+        } else {
+          if (res.data.code == 1) {
+            return res.data
+          } else if (res.data.code == 4007) {
+            // 没有权限
+            clearStore(res.data.msg, &apos;/&apos;)
+          } else {
+            vue.$toast(res.data.msg)
+            return res.data
+          }
+        }
+      })
+      .catch(err =&gt; {
+        console.log(&apos;err&apos;, err)
+        clearStore(err.msg, &apos;/&apos;)
+      })
+  }
+}
+export default http
+</code></pre></li>
+<li><p>之前的做法是 main.js里面 引入http.js 并全局注册Vue.use(‘http’)<br>http.js 里面是请求头 请求拦截 axios的封装get post请求<br>api.js   放所有的接口请求      </p>
+<p>没必要全局注册 在单个页面去引入就可以了 所有api.js中去引入http.js </p>
+</li>
+</ol>
+<ul>
+<li><p>computed用法之一</p>
+<pre><code>computed: {
+   text() {
+     return this.type == 0 ? `下单成功，请拨打电话${this.mobile}` : &apos;交付成功！&apos;
+   }
+ }
+</code></pre></li>
+<li><p>vuex简单使用</p>
+<p>  store文件下-</p>
+<p>  1.action.js – 操作行为处理模块,由commit()来触发mutation的调用 , 间接更新 state</p>
+<pre><code>const actions = {
+  token({commit},value) {
+    commit(&quot;TOKEN&quot;, value)
+  }
+}
+export default actions
+</code></pre><p>  2.mutations.js – commit：状态改变提交操作方法。对mutation进行提交，是唯一能执行mutation的方法。</p>
+<pre><code>const mutations = {
+ TOKEN(state, value){  //存储token
+    state.token = value
+    localStorage.setItem(&apos;token&apos;,value)
+  },
+  }
+export default mutations
+</code></pre><p>  3.state.js – 集中存储Vue components中data对象的零散数据,页面显示所需的数据从该对象中进行读取</p>
+<pre><code>const state = {
+     token: localStorage.getItem(&apos;token&apos;) ? localStorage.getItem(&apos;token&apos;) : &apos;&apos;,
+   }
+ export default state
+</code></pre><p>  4.getters.js – state对象读取方法。</p>
+<pre><code>export const token = state =&gt; state.token
+</code></pre><p>  5.store.js</p>
+<pre><code>import Vue from &apos;vue&apos;
+import Vuex from &apos;vuex&apos;
+import state from &apos;./state&apos;
+import mutations from &apos;./mutations&apos;
+import actions from &apos;./actions&apos;
+import * as getters from &apos;./getters&apos;
+
+Vue.use(Vuex)
+export default new Vuex.Store({
+  state,
+  mutations,
+  actions,
+  getters
+})
+</code></pre></li>
+<li><p>页面引入  </p>
+<pre><code>import { mapMutations } from &quot;vuex&quot;;
+ methods: {
+    ...mapMutations([&quot;TOKEN&quot;]),
+ add(){
+   this.CHOOSE_ADDRESS(item);
+  }
+ }
+</code></pre></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/24/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/24/正则 this指向 ES6/" rel="prev" title="call apply bind">
+                call apply bind <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">WangXiang</p>
+              <p class="site-description motion-element" itemprop="description">时间不负有心人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#vue"><span class="nav-number">1.</span> <span class="nav-text">vue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vuex-第二种使用"><span class="nav-number">2.</span> <span class="nav-text">vuex 第二种使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get-post-封装"><span class="nav-number">3.</span> <span class="nav-text">get post 封装</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WangXiang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

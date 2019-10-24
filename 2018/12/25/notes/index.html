@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="title: 使用hexo部署一个博客服务器date: 2018-12-25 18:38:04tags: 使用hexo部署一个博客服务器 环境准备  安装node.js 安装git  如果不会, 自行百度 安装hexo相关的工具  全局安装 hexo-clinpm i hexo-cli -g   创建一个博客项目  使用hexo init &amp;lt;目录名&amp;gt;下载时间较长, 比较耗时, 需要去g">
+<meta name="keywords" content="前端,web开发,php,vue,node,广交朋友,欢迎交流!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo部署博客服务器">
+<meta property="og:url" content="http://yoursite.com/2018/12/25/notes/index.html">
+<meta property="og:site_name" content="王相的个人博客">
+<meta property="og:description" content="title: 使用hexo部署一个博客服务器date: 2018-12-25 18:38:04tags: 使用hexo部署一个博客服务器 环境准备  安装node.js 安装git  如果不会, 自行百度 安装hexo相关的工具  全局安装 hexo-clinpm i hexo-cli -g   创建一个博客项目  使用hexo init &amp;lt;目录名&amp;gt;下载时间较长, 比较耗时, 需要去g">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-26T16:10:52.264Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hexo部署博客服务器">
+<meta name="twitter:description" content="title: 使用hexo部署一个博客服务器date: 2018-12-25 18:38:04tags: 使用hexo部署一个博客服务器 环境准备  安装node.js 安装git  如果不会, 自行百度 安装hexo相关的工具  全局安装 hexo-clinpm i hexo-cli -g   创建一个博客项目  使用hexo init &amp;lt;目录名&amp;gt;下载时间较长, 比较耗时, 需要去g">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/25/notes/">
+
+
+
+
+
+  <title>hexo部署博客服务器 | 王相的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">王相的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">时间不负有心人</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/25/notes/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WangXiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王相的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">hexo部署博客服务器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-25T20:28:26+08:00">
+                2018-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>title: 使用hexo部署一个博客服务器<br>date: 2018-12-25 18:38:04<br>tags:</p>
+<p>使用hexo部署一个博客服务器</p>
+<p>环境准备</p>
+<ol>
+<li>安装node.js</li>
+<li>安装git</li>
+</ol>
+<p>如果不会, 自行百度</p>
+<p>安装hexo相关的工具</p>
+<ol>
+<li>全局安装 hexo-cli<pre><code>npm i hexo-cli -g
+</code></pre></li>
+</ol>
+<p>创建一个博客项目</p>
+<ol>
+<li>使用hexo init &lt;目录名&gt;<br>下载时间较长, 比较耗时, 需要去github下载模板代码<pre><code>hexo init hexo-blog
+</code></pre></li>
+<li>使用npm install安装项目依赖<pre><code>cd hexo-blog
+npm i
+</code></pre></li>
+<li>当安装完毕后, 目录中就会有一系列文件, 其中 _config.yml 存放着博客的配置信息</li>
+<li>_config.yml 配置项如下:<pre><code>title: hero的个人博客 # 标题
+subtitle: Code is my life. # 子标题
+description: Code is my life. # 描述
+keywords: Web,前端,node,ES6,开发,程序员,技术宅,java,android,Python,爬虫 # 关键词, 用于做SEO优化
+author: my # 作者
+language: zh-CN # 语言
+timezone: Asia/Shanghai # 时区
+</code></pre>更多配置参见官网配置文档</li>
+<li>使用hexo new &lt;文章标题&gt;来写博客<pre><code>hexo new frontend_niubi
+</code></pre>执行完该命令后, 会在 ./source/_posts/目录下新建一个 frontend_niubi.md 文件<br>之后就可以随心所欲的写笔记了!</li>
+<li>写完笔记后, 使用 hexo g 命令结合主题(配置文件中: theme: landscape)和笔记(./srouce/_posts/目录中)生成HTML/css/js静态文件 <pre><code>hexo g
+</code></pre>执行完命令后, 会在 ./public 中生成静态文件</li>
+<li>最后只需要执行hexo server 启动服务器, 即可看到博客了!<pre><code>hexo server
+</code></pre>默认开启端口是4000, 通过 -p 可以指定端口号<pre><code>hexo server -p 80
+</code></pre></li>
+</ol>
+<p>hexo与github.io爱的结晶</p>
+<p>Github给每个用户都提供了一个轻量级的web服务器, 每个人的域名是: 用户名.github.io</p>
+<p>非常适合做博客, 这里就可以结合hexo生成的静态文件部署一个属于自己的个人博客</p>
+<ol>
+<li>在github上新建一个仓库, 仓库名必须是github用户名.github.io</li>
+<li>使用hexo的deploy功能完成项目的自动化部署<br>在部署之前, 一定要先配置好部署的参数<br>hexo支持五个部署方式, 我们采取git<br>首先在_config.yml配置文件中的 deploy: 节点下配置一下 type<pre><code>deploy: 
+        type: git
+</code></pre>如果使用的是git部署, 必须先装一个包:<pre><code>npm install hexo-deployer-git --save
+</code></pre>装完以后修改配置:<pre><code>deploy:
+  type: git # 类型为git
+  repo: &lt;repository url&gt;  # 仓库地址
+  branch: [branch] # 分支名
+  message: [message] # 
+</code></pre>配置完成后, 执行hexo g 然后执行 hexo d<br>hexo d是在将生成的静态文件, push到远程刚刚建好的仓库中, 而刚刚建的那个仓库正好可以通过用户名.github.io直接访问, 就是一个web服务器<pre><code>hexo g
+hexo d
+</code></pre></li>
+</ol>
+<p>设置hexo的主题</p>
+<p>墙裂推荐next主题</p>
+<ol>
+<li>安装<br>进入hexo博客的目录<pre><code>cd hexo-blog
+</code></pre>将next的源码克隆到当前目录的themes目录下<pre><code>git clone https://github.com/xiangWx/hexo-theme-next themes/next
+</code></pre></li>
+</ol>
+<p>注意事项:1.当直接把写好的文件放进  source/_posts/ 文件夹 </p>
+<pre><code>2. 在每个文件的最头部 配置
+      ---
+      title: 文章标题
+      date: 2018-12-25 20:28:26
+      tags:
+      ---   
+   配置了这个 标题才会显示出来
+
+3.再执行 hexo g     
+         hexo d 
+         把刚写好的文件push到远程仓库
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/28/node/node day04/" rel="next" title="04 express托管静态资源 结合ejs   art-template模板引擎 router模块的抽取">
+                <i class="fa fa-chevron-left"></i> 04 express托管静态资源 结合ejs   art-template模板引擎 router模块的抽取
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/27/vue/vueday04/" rel="prev" title="04 vue-resource 定义全局配置请求的根路径 动画">
+                04 vue-resource 定义全局配置请求的根路径 动画 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">WangXiang</p>
+              <p class="site-description motion-element" itemprop="description">时间不负有心人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WangXiang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

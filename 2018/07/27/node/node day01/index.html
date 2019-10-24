@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="node day01node的简介 前后端分离:   前端负责写页面, 和发送ajax请求获取数据, 通过模板引擎进行渲染   后端负责写接口, 提供数据  node环境的JavaScript   不同于浏览器中js, 不存在DOM和BOM的概念   以前所说的js的组成: ECMAScript + BOM + DOM, 其实是指在浏览器中JS的组成 document.getElementById">
+<meta name="keywords" content="前端,web开发,php,vue,node,广交朋友,欢迎交流!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01 node基础  fs模块">
+<meta property="og:url" content="http://yoursite.com/2018/07/27/node/node day01/index.html">
+<meta property="og:site_name" content="王相的个人博客">
+<meta property="og:description" content="node day01node的简介 前后端分离:   前端负责写页面, 和发送ajax请求获取数据, 通过模板引擎进行渲染   后端负责写接口, 提供数据  node环境的JavaScript   不同于浏览器中js, 不存在DOM和BOM的概念   以前所说的js的组成: ECMAScript + BOM + DOM, 其实是指在浏览器中JS的组成 document.getElementById">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-20T14:50:30.107Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="01 node基础  fs模块">
+<meta name="twitter:description" content="node day01node的简介 前后端分离:   前端负责写页面, 和发送ajax请求获取数据, 通过模板引擎进行渲染   后端负责写接口, 提供数据  node环境的JavaScript   不同于浏览器中js, 不存在DOM和BOM的概念   以前所说的js的组成: ECMAScript + BOM + DOM, 其实是指在浏览器中JS的组成 document.getElementById">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/27/node/node day01/">
+
+
+
+
+
+  <title>01 node基础  fs模块 | 王相的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">王相的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">时间不负有心人</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/27/node/node day01/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WangXiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王相的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">01 node基础  fs模块</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-27T23:42:04+08:00">
+                2018-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="node-day01"><a href="#node-day01" class="headerlink" title="node day01"></a>node day01</h2><h3 id="node的简介"><a href="#node的简介" class="headerlink" title="node的简介"></a>node的简介</h3><ul>
+<li><p>前后端分离:</p>
+<p>  前端负责写页面, 和发送ajax请求获取数据, 通过模板引擎进行渲染</p>
+<p>  后端负责写接口, 提供数据</p>
+</li>
+<li><p>node环境的JavaScript</p>
+<p>  不同于浏览器中js, 不存在DOM和BOM的概念</p>
+<p>  以前所说的js的组成: ECMAScript + BOM + DOM, 其实是指在浏览器中JS的组成</p>
+<pre><code>document.getElementById() // DOM中的方法
+var arr = []
+arr.sort() // ECMAScript中规范的方法
+</code></pre><p>  共同点: 只要是js, 都会遵循ECMAScrit规范</p>
+<p>  node环境的js组成: ECMAScript + 全局成员 + 内置模块 + 第三方模块</p>
+<p>  npm: node package manager (node包管理器)</p>
+</li>
+<li><p>使用node运行js</p>
+<p>  打开终端(Windows控制台) , cmd</p>
+</li>
+</ul>
+<h3 id="ES6新语法"><a href="#ES6新语法" class="headerlink" title="ES6新语法"></a>ES6新语法</h3><ol>
+<li><p>let关键字</p>
+<p> 由于JS历史遗留问题, 声明变量一直使用var关键字, 特点就是有变量声明提升, 没有块级作用域</p>
+<p> let关键字的出现就是为了解决上述两个问题, 特点如下:</p>
+<p> a. let声明变量必须声明后才可以使用, 如果在声明之前使用变量会直接报错: xxx is not defined</p>
+<p> b. let声明变量不赋值, 默认值也是undefined</p>
+<p> c. let声明的变量有块级作用域, 如果在if/while/for等有大括号的代码中声明变量, 出了这个大括号就无法访问了</p>
+<p> d. let和const都无法重复声明变量, 一旦变量被声明就不可再次声明</p>
+</li>
+<li><p>const关键字</p>
+<p> 不同于let的是, const用于声明常量, 一旦被声明必须立即赋值, 并且永远不可修改</p>
+<p> a. const声明的常量必须立即赋值</p>
+<p> b. 不可被再次修改</p>
+<p> c. 其他地方同let</p>
+</li>
+<li><p>解构赋值</p>
+<p> 作用: 将对象的属性提取出来存在变量中, 例如, 将userInfo对象的name和age属性提取出来放到name和age变量中存储:</p>
+<pre><code>let userInfo = {
+    name: &apos;谢俊&apos;,
+    age: 30,
+    gender: &apos;男&apos;,
+    sayHi: function() {
+        console.log(&apos;大家好我是&apos; + this.name)
+    }
+}
+// 以前的做法:
+// let name = userInfo.name
+// let userAge = userInfo.age
+// let sayHi = userInfo.sayHi
+// sayHi()
+// ES6解构赋值的做法:
+let { name, age: userAge, sayHi } = userInfo
+// 以上代码只是将用户信息的属性值提取出来存到变量中了, 如果修改变量name或userAge, 不会影响userInfo中的数据, 因为这是基本数据类型, 传递数据都是值传递
+</code></pre></li>
+<li><p>箭头函数</p>
+<p> 作用: 为了解决函数内部this指向的问题, 箭头函数的特点就是, 函数内部的this永远指向函数外部的this</p>
+<p> 语法:</p>
+<pre><code>// 小括号里面写形参列表
+// 大括号里面写函数体
+() =&gt; {}
+</code></pre><p> 简便写法:</p>
+<p> a. 如果形参列表只有一个参数, 可以省略小括号, 注意: 如果一个参数都没有或者两个以上的参数必须加上小括号<code>()</code></p>
+<p> b. 如果函数体中只有一行代码, 那么右侧的大括号<code>{}</code>可以省略, 并且还需要去掉return关键字, 默认会把这一行代码执行的结果返回出去</p>
+</li>
+<li><p>添加对象属性或方法的简便写法</p>
+<p> 作用: 把和对象属性同名的变量快速的添加到对象中</p>
+<p> 以前的写法</p>
+<pre><code>let name = &apos;谢俊&apos;
+let age = 30
+
+let obj = {
+  name: name,
+  age: age
+}
+</code></pre><p> ES6的写法:</p>
+<pre><code>let name = &apos;谢俊&apos;
+let age = 30
+let fn = function () {
+  console.log(&apos;我是fn&apos;)
+}
+
+let obj = {
+  name,
+  age,
+  fn,
+  sayHi() {
+
+  }
+}
+</code></pre></li>
+</ol>
+<h3 id="fs模块"><a href="#fs模块" class="headerlink" title="fs模块"></a>fs模块</h3><p>fs模块属于核心模块, 只要安装了node环境就会携带, 使用方法先导入该模块:</p>
+<pre><code>const fs = require(&apos;fs&apos;)
+</code></pre><ol>
+<li><p>读取文件</p>
+<pre><code>fs.readFile()
+</code></pre><p> 参数1: 路径 path, 可以是相对路径</p>
+<p> 参数2: 可选值 编码</p>
+<p> 参数3: 读取完成的回调函数, 该回调函数中有两个参数, 第一个是错误信息err, 第二个是读取的数据data, 如果没有指定编码, data是Buffer类型的数据, 可以通过toString转为字符串</p>
+</li>
+<li><p>写入文件</p>
+<pre><code>fs.writeFile()
+</code></pre><p> 参数1: 路径</p>
+<p> 参数2: 要写入的数据, 类型可以是string或buffer</p>
+<p> 参数3: 可选值 编码 默认utf-8</p>
+<p> 参数4: 回调函数, 该回调函数只有一个参数错误信息err</p>
+<p> <strong>注意: 如果要写入的文件不存在, 会创建文件后写入</strong></p>
+</li>
+<li><p>追加文件</p>
+<pre><code>fs.appendFile()
+</code></pre><p> 参数1: 路径</p>
+<p> 参数2: 要追加的数据, 类型可以是string或buffer</p>
+<p> 参数3: 可选值 编码 默认utf-8</p>
+<p> 参数4: 回调函数, 该回调函数只有一个参数错误信息err</p>
+<p> <strong>注意: 如果要追加的文件不存在, 会创建文件后追加</strong></p>
+</li>
+</ol>
+<ol start="4">
+<li><p>复制文件</p>
+<pre><code>fs.copyFile()
+</code></pre><p> 参数1: 源路径</p>
+<p> 参数2: 目标路径</p>
+<p> 参数3: 可选值 flags 无视掉</p>
+<p> 参数4: 回调函数, 该回调函数只有一个参数错误信息err</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/17/vue/vue-axios/" rel="next" title="16 vue-cli + element ui + axios + 路由的导航首位">
+                <i class="fa fa-chevron-left"></i> 16 vue-cli + element ui + axios + 路由的导航首位
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/27/node/node day02/" rel="prev" title="02 node.js __dirname  path模块">
+                02 node.js __dirname  path模块 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">WangXiang</p>
+              <p class="site-description motion-element" itemprop="description">时间不负有心人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#node-day01"><span class="nav-number">1.</span> <span class="nav-text">node day01</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#node的简介"><span class="nav-number">1.1.</span> <span class="nav-text">node的简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6新语法"><span class="nav-number">1.2.</span> <span class="nav-text">ES6新语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fs模块"><span class="nav-number">1.3.</span> <span class="nav-text">fs模块</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WangXiang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

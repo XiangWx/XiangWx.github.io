@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="微信公众号H5项目技术栈：  vue + vuex + axios +  vue-router + vant UI + vw适配  vue 实现vw适配 适配好后在项目中直接使用px 会自动转换 参考链接 https://www.w3cplus.com/mobile/vw-layout-in-vue.html   遇到的问题： 请求头 axios的默认请求头是Content-Type: appli">
+<meta name="keywords" content="前端,web开发,php,vue,node,广交朋友,欢迎交流!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信公众号_H5">
+<meta property="og:url" content="http://yoursite.com/2019/05/19/公众号H5项目汇总/lanmaoyizhan/index.html">
+<meta property="og:site_name" content="王相的个人博客">
+<meta property="og:description" content="微信公众号H5项目技术栈：  vue + vuex + axios +  vue-router + vant UI + vw适配  vue 实现vw适配 适配好后在项目中直接使用px 会自动转换 参考链接 https://www.w3cplus.com/mobile/vw-layout-in-vue.html   遇到的问题： 请求头 axios的默认请求头是Content-Type: appli">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-19T08:55:15.120Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信公众号_H5">
+<meta name="twitter:description" content="微信公众号H5项目技术栈：  vue + vuex + axios +  vue-router + vant UI + vw适配  vue 实现vw适配 适配好后在项目中直接使用px 会自动转换 参考链接 https://www.w3cplus.com/mobile/vw-layout-in-vue.html   遇到的问题： 请求头 axios的默认请求头是Content-Type: appli">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/19/公众号H5项目汇总/lanmaoyizhan/">
+
+
+
+
+
+  <title>微信公众号_H5 | 王相的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">王相的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">时间不负有心人</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/19/公众号H5项目汇总/lanmaoyizhan/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WangXiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王相的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">微信公众号_H5</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-19T16:23:45+08:00">
+                2019-05-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="微信公众号H5项目"><a href="#微信公众号H5项目" class="headerlink" title="微信公众号H5项目"></a>微信公众号H5项目</h3><p>技术栈：</p>
+<ul>
+<li><p>vue + vuex + axios +  vue-router + vant UI + vw适配</p>
+</li>
+<li><p>vue 实现vw适配 适配好后在项目中直接使用px 会自动转换 参考链接</p>
+<pre><code>https://www.w3cplus.com/mobile/vw-layout-in-vue.html
+</code></pre></li>
+</ul>
+<p>遇到的问题：</p>
+<h4 id="请求头"><a href="#请求头" class="headerlink" title="请求头"></a>请求头</h4><ul>
+<li><p>axios的默认请求头是Content-Type: application/json</p>
+<pre><code>会出现发两次请求的现象，因为首先会发起一个options预请求，判断接口是否能正常通讯 第二个请求是携带餐宿的真正请求
+
+解决：设置axios的默认请求头axios.defaults.headers[&apos;Content-Type&apos;] = &apos;application/x-www-form-urlencoded&apos;;
+格式是{‘phone’:&apos;15900000&apos;,&apos;password&apos;:&apos;123123&apos;}
+后台不认识这个格式需要转换下
+安装qs  把请求体传参的data 用qs.stringify({phone:&apos;10000&apos;})转换下
+</code></pre></li>
+</ul>
+<h4 id="移动端安卓-input-默认背景问题"><a href="#移动端安卓-input-默认背景问题" class="headerlink" title="移动端安卓 input 默认背景问题"></a>移动端安卓 input 默认背景问题</h4><ul>
+<li><p>input的背景 在安卓端默认是灰色的 ios上边框会有虚线 全局App.vue中加入了css</p>
+<pre><code>input{
+   border-radius:0; /*ios 去除底部虚线边框*/
+   outline: none;
+   background-color:transparent;
+   -webkit-appearance:none;
+   FILTER: alpha(opacity=0); /*androd 去掉白色背景*/
+   }
+</code></pre></li>
+</ul>
+<h4 id="input和button同时使用的时候-安卓端点击input输入框-按钮上浮到input上去了"><a href="#input和button同时使用的时候-安卓端点击input输入框-按钮上浮到input上去了" class="headerlink" title="input和button同时使用的时候 安卓端点击input输入框 按钮上浮到input上去了"></a>input和button同时使用的时候 安卓端点击input输入框 按钮上浮到input上去了</h4><ul>
+<li><p>解决方案1 通过js 监听屏幕可见区域的高度 动态设置button的显示隐藏</p>
+<pre><code>mounted() {
+     //监听窗口改变 避免input输入 按钮上浮
+      var originalHeight = document.documentElement.clientHeight || document.body.clientHeight;
+     let that = this
+     window.onresize = function temp() { //ios 软键盘弹起不会触发这个事件
+       var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
+       if (resizeHeight - 0 &lt; originalHeight - 0) {
+         that.btnShow = false; //或者position:static
+       } else {
+         that.btnShow = true; //或者position:fixed
+       }
+     };
+     },
+</code></pre><p>  在mounted中 监听窗口的改变 动态改变按钮的隐藏显示 v-show=‘btnShow’</p>
+</li>
+<li><p>解决方案2  改变整体布局结构 使用flex布局 但是这样 安卓端 点击input输入框 按钮也会上浮一半</p>
+</li>
+</ul>
+<h4 id="ios端-vant-ui的省市区组件area-出现滑动卡顿-滑动不了的现象"><a href="#ios端-vant-ui的省市区组件area-出现滑动卡顿-滑动不了的现象" class="headerlink" title="ios端  vant ui的省市区组件area 出现滑动卡顿 滑动不了的现象"></a>ios端  vant ui的省市区组件area 出现滑动卡顿 滑动不了的现象</h4><ul>
+<li><p>area组件 在安卓端 滑动都是正常 ios端 iphone 6p出现 只能点 不能上下滑动拖动的情况 </p>
+</li>
+<li><p>解决 </p>
+<pre><code>.van-picker-column {
+        position:relative;
+        z-index:1;
+    }
+    .van-picker-column:before {
+        width:100%;
+        height:100%;
+        position:absolute;
+        top:0;
+        left:0;
+        content:&apos;&apos;;
+        }
+    .van-picker-column&gt;ul {
+        z-index:-1;
+        position:relative;
+}
+</code></pre></li>
+<li><p>在vant的github issue上看到有人使用这段css代码解决了问题 亲测有效 可能是ul的高度被覆盖了</p>
+</li>
+</ul>
+<h4 id="上传图片-使用的是input-type-file-部分华为手机-点选不了相册的照片"><a href="#上传图片-使用的是input-type-file-部分华为手机-点选不了相册的照片" class="headerlink" title="上传图片 使用的是input type=file 部分华为手机 点选不了相册的照片"></a>上传图片 使用的是input type=file 部分华为手机 点选不了相册的照片</h4><ul>
+<li><p>（还未证实） 看到有人是这么处理的</p>
+<pre><code>input 选择图片在安卓失效 解决方案
+
+https://blog.csdn.net/weixin_33811539/article/details/87508393
+</code></pre><p>  原来的input输入框选择图片是这么写的</p>
+<pre><code>&lt;input type=&quot;file&quot; multiple   accept=&quot;image/gif, image/jpeg, image/png&quot; id=&quot;upload&quot;&gt;
+</code></pre><p>  但是在安卓手机上不能选择图片，所以改为如下：</p>
+<pre><code>&lt;input type=&quot;file&quot; accept=&quot;image/*&quot; capture=&quot;camera&quot; multiple  id=&quot;upload&quot; &gt;
+</code></pre><p>  但是这样的话，在ios手机上就只能拍照，所以在js中还要加入一下代码</p>
+<pre><code>var u = navigator.userAgent;
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+if(isiOS){
+    document.getElementById(&quot;upload&quot;).removeAttribute(&quot;capture&quot;,&quot;camera&quot;);
+}
+</code></pre></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/23/eslint/" rel="next" title="eslint关闭">
+                <i class="fa fa-chevron-left"></i> eslint关闭
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">WangXiang</p>
+              <p class="site-description motion-element" itemprop="description">时间不负有心人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#微信公众号H5项目"><span class="nav-number">1.</span> <span class="nav-text">微信公众号H5项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#请求头"><span class="nav-number">1.1.</span> <span class="nav-text">请求头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移动端安卓-input-默认背景问题"><span class="nav-number">1.2.</span> <span class="nav-text">移动端安卓 input 默认背景问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#input和button同时使用的时候-安卓端点击input输入框-按钮上浮到input上去了"><span class="nav-number">1.3.</span> <span class="nav-text">input和button同时使用的时候 安卓端点击input输入框 按钮上浮到input上去了</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ios端-vant-ui的省市区组件area-出现滑动卡顿-滑动不了的现象"><span class="nav-number">1.4.</span> <span class="nav-text">ios端  vant ui的省市区组件area 出现滑动卡顿 滑动不了的现象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上传图片-使用的是input-type-file-部分华为手机-点选不了相册的照片"><span class="nav-number">1.5.</span> <span class="nav-text">上传图片 使用的是input type=file 部分华为手机 点选不了相册的照片</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WangXiang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

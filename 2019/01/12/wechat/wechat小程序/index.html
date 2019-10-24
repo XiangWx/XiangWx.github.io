@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="wechat 小程序特点:   单向数据流，通过数据绑定将逻辑层的数据，渲染到视图层，如果要从视图层到逻辑层，需要通过事件绑定  data中的数据改变,不会同步到view层,需要借助 Page.prototype.setData (Page的原型) this.setData({ })来修改数据，包含两层操作：1.改变数据源 2.刷新页面（通知框架，数据源改变，需要重新渲染页面）  数据的输出: 小">
+<meta name="keywords" content="前端,web开发,php,vue,node,广交朋友,欢迎交流!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序">
+<meta property="og:url" content="http://yoursite.com/2019/01/12/wechat/wechat小程序/index.html">
+<meta property="og:site_name" content="王相的个人博客">
+<meta property="og:description" content="wechat 小程序特点:   单向数据流，通过数据绑定将逻辑层的数据，渲染到视图层，如果要从视图层到逻辑层，需要通过事件绑定  data中的数据改变,不会同步到view层,需要借助 Page.prototype.setData (Page的原型) this.setData({ })来修改数据，包含两层操作：1.改变数据源 2.刷新页面（通知框架，数据源改变，需要重新渲染页面）  数据的输出: 小">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-30T08:28:42.331Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信小程序">
+<meta name="twitter:description" content="wechat 小程序特点:   单向数据流，通过数据绑定将逻辑层的数据，渲染到视图层，如果要从视图层到逻辑层，需要通过事件绑定  data中的数据改变,不会同步到view层,需要借助 Page.prototype.setData (Page的原型) this.setData({ })来修改数据，包含两层操作：1.改变数据源 2.刷新页面（通知框架，数据源改变，需要重新渲染页面）  数据的输出: 小">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/12/wechat/wechat小程序/">
+
+
+
+
+
+  <title>微信小程序 | 王相的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">王相的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">时间不负有心人</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/12/wechat/wechat小程序/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WangXiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王相的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">微信小程序</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-12T14:20:20+08:00">
+                2019-01-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="wechat-小程序"><a href="#wechat-小程序" class="headerlink" title="wechat 小程序"></a>wechat 小程序</h2><p>特点: </p>
+<ul>
+<li><p>单向数据流，通过数据绑定将逻辑层的数据，渲染到视图层，如果要从视图层到逻辑层，需要通过事件绑定</p>
+</li>
+<li><p>data中的数据改变,不会同步到view层,需要借助 Page.prototype<br>.setData (Page的原型) <code>this.setData({ })</code>来修改数据，包含两层操作：1.改变数据源 2.刷新页面（通知框架，数据源改变，需要重新渲染页面）</p>
+</li>
+<li><p>数据的输出: 小胡子语法<code></code><br>用差值表达式来申明有类型的值 如<code>checked=&quot;false&quot;</code></p>
+</li>
+<li><p>事件绑定:  用bindxxx</p>
+</li>
+<li><p>如点击事件 <code>bindtap=&#39;changeFlag&#39;</code> 在js中声明事件函数</p>
+</li>
+<li><p>配置文件在json文件中写 </p>
+</li>
+<li><p><strong>遵循的是CommonJS规范，导入模块是 <code>require()</code>, 导出模块一般都是<code>module.exports</code> 可以导出一个对象或者函数</strong></p>
+</li>
+</ul>
+<h3 id="小程序中有如下几个生命周期"><a href="#小程序中有如下几个生命周期" class="headerlink" title="小程序中有如下几个生命周期:"></a>小程序中有如下几个生命周期:</h3><p>在app.js中定义:</p>
+<ol>
+<li><p>onLaunch: 当小程序初始化完成，初次打开程序时,会触发 （全局只触发一次,例如切换到后台再切换回来也不会触发）</p>
+</li>
+<li><p>onShow: 当小程序启动，或从后台进入前台显示，或者成为焦点时候都会触发 onShow(显示)</p>
+</li>
+<li><p>onHide: 当小程序从前台进入后台，会触发 onHide(隐藏)</p>
+</li>
+<li><p>onError: 当小程序发生脚本错误，或者 api 调用失败时，会触发  并带上错误信息(只能捕获到运行阶段的异常)</p>
+</li>
+</ol>
+<p>除了生命周期约定好的钩子函数,还可以定义其他成员,作为其他页面的共享</p>
+<h3 id="页面的生命周期"><a href="#页面的生命周期" class="headerlink" title="页面的生命周期:"></a>页面的生命周期:</h3><p><strong>压栈时触发:</strong></p>
+<ol>
+<li>onLoad: 页面加载触发,适合做数据初始化</li>
+</ol>
+<ol start="2">
+<li><p>onShow:页面前台展示时,触发</p>
+</li>
+<li><p>onReady:页面渲染完后触发(例如设置标题)</p>
+</li>
+</ol>
+<p><strong>弹栈时触发:</strong></p>
+<ol start="4">
+<li><p>onHide:页面隐藏</p>
+</li>
+<li><p>onUnload:页面卸载(页面返回,小程序内部就会销毁这个页面,此时会触发.用于在页面卸载之前保存页面状态)</p>
+</li>
+</ol>
+<h3 id="条件渲染-wx-if-与-hidden"><a href="#条件渲染-wx-if-与-hidden" class="headerlink" title="条件渲染 wx:if 与 hidden"></a>条件渲染 wx:if 与 hidden</h3><p><code>hidden=&quot;&quot;</code>用于频繁切换显示隐藏的元素时</p>
+<p><code>wx:if</code> 是直接创建销毁元素</p>
+<p>条件判断： <code>wx:if  wx:else</code>,如：</p>
+<pre><code>&lt;view wx:if=&apos;{{hasMore}}&apos;&gt;加载更多&lt;/view&gt;
+&lt;view wx:else&gt;已经没有更多数据了&lt;/view&gt;
+</code></pre><h3 id="block标签"><a href="#block标签" class="headerlink" title="block标签"></a>block标签</h3><ul>
+<li><p>该标签只是单纯的将结构标签包裹</p>
+</li>
+<li><p>用来控制需要动态的显示隐藏的元素标签</p>
+</li>
+</ul>
+<h3 id="wx-for-列表渲染"><a href="#wx-for-列表渲染" class="headerlink" title="wx:for 列表渲染"></a>wx:for 列表渲染</h3><ul>
+<li><p><code>wx:for=””</code>便利循环data中的<code>students</code>数组</p>
+</li>
+<li><p>输出 <code></code>  默认循环的每一项是<code>item</code></p>
+</li>
+<li><p>为了将数据和元素的勾选状态绑定产生关联,也需要使用<code>wx:key= &quot;id&quot;</code>来实现绑定，或者使用 <code>*this</code><br>如果不需要考虑前后顺序改变,可以不加key</p>
+</li>
+</ul>
+<h3 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h3><ul>
+<li><p>在组件中绑定一个事件处理函数。加上bindxxx 如 <code>bindtap=&#39;&#39;</code></p>
+</li>
+<li><p>只能绑定某个事件名（不能加括号），不能直接写事件表达式</p>
+</li>
+<li><p>可以通过<code>data-xx=&#39;&#39;</code>或者<code>id=&#39;&#39;</code> 来传参，标识具体操作的是哪一条数据</p>
+</li>
+</ul>
+<h2 id="WXSS"><a href="#WXSS" class="headerlink" title="WXSS"></a>WXSS</h2><ul>
+<li><p>尺寸单位 <code>rpx</code> </p>
+</li>
+<li><p>将设备分成750个rpx的宽度，原理是：为不同设备做适配，由小程序去计算不同设备应该对应多少的物理像素。根据屏幕宽度进行自适应</p>
+</li>
+</ul>
+<h3 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h3><ul>
+<li><p>发送请求不存在跨域，请求的地址必须在管理后台配置：</p>
+</li>
+<li><p>添加白名单，域名必须备案，服务端必须采用HTTPS</p>
+<pre><code>wx.request({
+url: &apos;&apos;, 
+data: {x: &apos;&apos;,y: &apos;&apos;},
+success(res) {
+   console.log(res.data)
+}
+})
+</code></pre></li>
+<li><p><code>wx.request()</code> 没有对 promise 进行封装，为了代码的简洁先进行封装，例如：</p>
+<pre><code>module.exports = (url,data)=&gt;{
+   return new Promise((resolve,reject)=&gt;{
+       wx.request({
+           url: `https://locally.uieee.com/${url}`, 
+           data,
+           success:resolve,
+           fail:reject
+       })
+   })
+   }
+</code></pre></li>
+</ul>
+<p>在需要发送http请求的模块引入这个文件，如</p>
+<pre><code>let http = require(&apos;../../utils/http.js&apos;)    //相对路径    
+
+  onLoad: function (options) {
+       http(&apos;slides&apos;).then(res=&gt;{
+       this.setData({swiper:res.data})
+   })
+   }
+</code></pre><ul>
+<li>传参  <code>?id=‘xxx’</code>  例如：<code>url=&#39;/pages/list/list?id=&#39;</code></li>
+</ul>
+<h2 id="promise"><a href="#promise" class="headerlink" title="promise"></a>promise</h2><p>promise 最大的价值就是在 <code>.then</code> 里面返回一个promise对象，后面可以继续 <code>.then</code>下去</p>
+<h2 id="wxs（WeiXin-Script）"><a href="#wxs（WeiXin-Script）" class="headerlink" title="wxs（WeiXin Script）"></a>wxs（WeiXin Script）</h2><ul>
+<li>wxs 一般都是当作过滤器来使用 </li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/11/vue/vue-lastday/" rel="next" title="15 vue-router 导航守卫 axios Element-UI">
+                <i class="fa fa-chevron-left"></i> 15 vue-router 导航守卫 axios Element-UI
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/15/wechat/微信公众号/" rel="prev" title="微信公众号">
+                微信公众号 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">WangXiang</p>
+              <p class="site-description motion-element" itemprop="description">时间不负有心人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#wechat-小程序"><span class="nav-number">1.</span> <span class="nav-text">wechat 小程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小程序中有如下几个生命周期"><span class="nav-number">1.1.</span> <span class="nav-text">小程序中有如下几个生命周期:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页面的生命周期"><span class="nav-number">1.2.</span> <span class="nav-text">页面的生命周期:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件渲染-wx-if-与-hidden"><span class="nav-number">1.3.</span> <span class="nav-text">条件渲染 wx:if 与 hidden</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#block标签"><span class="nav-number">1.4.</span> <span class="nav-text">block标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wx-for-列表渲染"><span class="nav-number">1.5.</span> <span class="nav-text">wx:for 列表渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件"><span class="nav-number">1.6.</span> <span class="nav-text">事件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WXSS"><span class="nav-number">2.</span> <span class="nav-text">WXSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#发送请求"><span class="nav-number">2.1.</span> <span class="nav-text">发送请求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#promise"><span class="nav-number">3.</span> <span class="nav-text">promise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wxs（WeiXin-Script）"><span class="nav-number">4.</span> <span class="nav-text">wxs（WeiXin Script）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WangXiang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

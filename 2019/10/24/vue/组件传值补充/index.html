@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Vue传值一.父向子传值方法1：属性绑定进行传值：使用v-bind绑定属性，props定义属性进行接收（ 通过属性绑定 在子组件使用的地方 :sonmsg=&amp;quot;msg&amp;quot; 在子组件 声明 props:[&amp;apos;sonmsg&amp;apos;]）  方法2：在子组件中使用this.$parent.xxx直接获取父组件中的数据 二.子向父传值方法1：使用发布订阅者模式，this.$emi">
+<meta name="keywords" content="前端,web开发,php,vue,node,广交朋友,欢迎交流!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="组件间的传值">
+<meta property="og:url" content="http://yoursite.com/2019/10/24/vue/组件传值补充/index.html">
+<meta property="og:site_name" content="王相的个人博客">
+<meta property="og:description" content="Vue传值一.父向子传值方法1：属性绑定进行传值：使用v-bind绑定属性，props定义属性进行接收（ 通过属性绑定 在子组件使用的地方 :sonmsg=&amp;quot;msg&amp;quot; 在子组件 声明 props:[&amp;apos;sonmsg&amp;apos;]）  方法2：在子组件中使用this.$parent.xxx直接获取父组件中的数据 二.子向父传值方法1：使用发布订阅者模式，this.$emi">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-12T12:30:44.402Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="组件间的传值">
+<meta name="twitter:description" content="Vue传值一.父向子传值方法1：属性绑定进行传值：使用v-bind绑定属性，props定义属性进行接收（ 通过属性绑定 在子组件使用的地方 :sonmsg=&amp;quot;msg&amp;quot; 在子组件 声明 props:[&amp;apos;sonmsg&amp;apos;]）  方法2：在子组件中使用this.$parent.xxx直接获取父组件中的数据 二.子向父传值方法1：使用发布订阅者模式，this.$emi">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/24/vue/组件传值补充/">
+
+
+
+
+
+  <title>组件间的传值 | 王相的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">王相的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">时间不负有心人</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/24/vue/组件传值补充/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WangXiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王相的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">组件间的传值</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-24T17:56:54+08:00">
+                2019-10-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><h4 id="传值"><a href="#传值" class="headerlink" title="传值"></a>传值</h4><h4 id="一-父向子传值"><a href="#一-父向子传值" class="headerlink" title="一.父向子传值"></a>一.父向子传值</h4><pre><code>方法1：属性绑定进行传值：使用v-bind绑定属性，props定义属性进行接收（
+通过属性绑定 在子组件使用的地方 :sonmsg=&quot;msg&quot;
+在子组件 声明 props:[&apos;sonmsg&apos;]）
+
+方法2：在子组件中使用this.$parent.xxx直接获取父组件中的数据
+</code></pre><h4 id="二-子向父传值"><a href="#二-子向父传值" class="headerlink" title="二.子向父传值"></a>二.子向父传值</h4><pre><code>方法1：使用发布订阅者模式，this.$emit(&apos;消息名称&apos;，‘传递的数据’)
+
+1.子组件需要想办法触发this.$emit
+
+触发时机：点击某个按钮时候触发 或者 直接在created中写
+
+2.在父组件中，在子组件的位置  绑定事件@change=‘getdata’
+
+在methods中声明下这个处理函数
+
+
+方法2：在父组件中使用this.$refs.xxx获取到子组件的对象再进一步的获取子组件身上的数据
+
+    &lt;son ref=&apos;xxx&apos;&gt;&lt;/son&gt;
+
+方法3：直接给子组件绑定属性，属性值是父组件中的一个函数，子组件接收到这个属性之后调用函数
+</code></pre><h4 id="三-兄弟组件传值"><a href="#三-兄弟组件传值" class="headerlink" title="三.兄弟组件传值"></a>三.兄弟组件传值</h4><pre><code>event.bus 事件总线
+
+需要使用一个空的vue实例当作中介进行数据的传输，利用vue实例提供的方法进行传输，这个vue实例本身不保存数据
+
+一般用的比较多的是用vuex数据共享
+</code></pre><h4 id="四-插槽"><a href="#四-插槽" class="headerlink" title="四.插槽"></a>四.插槽</h4><p>插槽就是Vue实现的一套内容分发的API，将<slot></slot>元素作为承载分发内容的出口，没有插槽的情况下在组件标签内写内容是不起作用的，只有在组件中声明了slot元素之后，在组件内部写的内容就会展示出来</p>
+<p>一。默认插槽：没有名字的</p>
+<p>合成组件 <son>组件xxx</son></p>
+<p>在son组件的模板中写上<slot></slot>  页面就可以展示‘组件xxx’</p>
+<p>二。具名插槽：</p>
+<p>有多个插槽，并且在组件中给插槽取名字</p>
+<pre><code>&lt;div id=&quot;app&quot;&gt;
+    &lt;child-component&gt;
+        &lt;template slot=&quot;girl&quot;&gt;漂亮、美丽、购物、逛街&lt;/template&gt;
+        &lt;template slot=&quot;boy&quot;&gt;帅气、才实&lt;/template&gt;
+        &lt;div&gt;我是一类人，我是默认的插槽&lt;/div&gt;
+    &lt;/child-component&gt;
+&lt;/div&gt;
+
+&lt;template slot=&apos;hello&apos; slot-scope=&apos;scope&apos;&gt;
+    &lt;div&gt;
+         &lt;p&gt;父组件&lt;/p&gt;
+        &lt;div&gt;{{list}}&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+    &lt;script&gt;
+     Vue.component(&apos;child-component&apos;,{
+        template:`
+            &lt;div&gt;
+            &lt;slot name=&quot;girl&quot;&gt;&lt;/slot&gt;
+            &lt;div style=&quot;height:1px;background-color:red;&quot;&gt;&lt;/div&gt;
+            &lt;slot name=&quot;boy&quot;&gt;&lt;/slot&gt;
+            &lt;div style=&quot;height:1px;background-color:red;&quot;&gt;&lt;/div&gt;
+            &lt;slot&gt;&lt;/slot&gt;
+            &lt;/div&gt;
+        `
+    })
+    let vm = new Vue({
+        el:&apos;#app&apos;,
+        data:{
+
+        }
+    })
+    &lt;/script&gt;
+</code></pre><p>三。作用域插槽：携带数据的插槽，将子组件的值传到父组件中</p>
+<p>用处：用的最多的是 做table表格</p>
+<p>作用：让父组件决定子组件的结构是什么样的，可以使用子组件的数据在父组件中渲染页面（子向父传值）</p>
+<p>1.子组件中slot占位置 并通过属性绑定需要传到父组件中的数据<slot name="‘hello’" :mlist="list"></slot></p>
+<p>2.在当前插槽对应的父组件模板身上加上slot-scope</p>
+<pre><code>&lt;div id=&quot;app&quot;&gt;
+    &lt;child :lists=&quot;nameList&quot;&gt;
+        &lt;template slot-scope=&quot;a&quot;&gt;
+            {{a}}
+        &lt;/template&gt;
+    &lt;/child&gt;
+&lt;/div&gt;
+&lt;script&gt;
+    Vue.component(&apos;child&apos;,{
+        props:[&apos;lists&apos;],
+        template:`
+            &lt;div&gt;
+                &lt;ul&gt;
+                    &lt;li v-for=&quot;list in lists&quot;&gt;
+                        &lt;slot :bbbbb=&quot;list&quot;&gt;&lt;/slot&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/div&gt;
+    `
+})
+
+let vm = new Vue({
+    el:&apos;#app&apos;,
+    data:{
+        nameList:[
+        {id:1,name:&apos;孙悟空&apos;},
+        {id:2,name:&apos;猪八戒&apos;}
+        ]
+    }
+    })
+ &lt;/script&gt;
+
+
+ 输出：
+
+{&apos;bbbbb&apos;:{&quot;id&quot;:1,&quot;name&quot;:&quot;孙悟空&quot;}}
+{&apos;bbbbb&apos;:{&quot;id&quot;:2,&quot;name&quot;:&quot;猪八戒&quot;}}
+</code></pre><p>这样就可以根据这个对象的属性随意操作了，当id等于1的时候，我前面加个你好。</p>
+<pre><code>&lt;child :lists=&quot;nameList&quot;&gt;
+    &lt;template slot-scope=&quot;a&quot;&gt;
+        &lt;div v-if=&apos;a.bbbbb.id==1&apos;&gt;你好：&lt;span&gt;{{a.bbbbb.name}}&lt;/span&gt;&lt;/div&gt;
+        &lt;div v-else&gt;{{a.bbbbb.name}}&lt;/div&gt;
+    &lt;/template&gt;
+&lt;/child&gt;
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/24/vue/vueday13/" rel="next" title="13 Vuex 与 getBoundingClientRect fetch方法">
+                <i class="fa fa-chevron-left"></i> 13 Vuex 与 getBoundingClientRect fetch方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/24/wechat/wechat小程序/" rel="prev" title="微信小程序">
+                微信小程序 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">WangXiang</p>
+              <p class="site-description motion-element" itemprop="description">时间不负有心人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue"><span class="nav-number">1.</span> <span class="nav-text">Vue</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#传值"><span class="nav-number">1.0.1.</span> <span class="nav-text">传值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一-父向子传值"><span class="nav-number">1.0.2.</span> <span class="nav-text">一.父向子传值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二-子向父传值"><span class="nav-number">1.0.3.</span> <span class="nav-text">二.子向父传值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三-兄弟组件传值"><span class="nav-number">1.0.4.</span> <span class="nav-text">三.兄弟组件传值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四-插槽"><span class="nav-number">1.0.5.</span> <span class="nav-text">四.插槽</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WangXiang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

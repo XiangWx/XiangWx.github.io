@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="关于promise ES6提供的promise作为异步操作的新的解决方案  1.代码更有可读性  2.可以更方便的处理多种异步操作组合问题  3.promise 本身就是个构造函数  4.解决了回调函数多层嵌套的问题,但是还是需要通过回调函数的方式获取异步操作的数据 ES7  async$awiat可以简化代码书写 async 是用来修饰函数，异步函数 awiat  只使用于async修饰过的函数">
+<meta name="keywords" content="前端,web开发,php,vue,node,广交朋友,欢迎交流!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="promise的封装">
+<meta property="og:url" content="http://yoursite.com/2019/02/02/封装promise/index.html">
+<meta property="og:site_name" content="王相的个人博客">
+<meta property="og:description" content="关于promise ES6提供的promise作为异步操作的新的解决方案  1.代码更有可读性  2.可以更方便的处理多种异步操作组合问题  3.promise 本身就是个构造函数  4.解决了回调函数多层嵌套的问题,但是还是需要通过回调函数的方式获取异步操作的数据 ES7  async$awiat可以简化代码书写 async 是用来修饰函数，异步函数 awiat  只使用于async修饰过的函数">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-13T12:39:41.544Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="promise的封装">
+<meta name="twitter:description" content="关于promise ES6提供的promise作为异步操作的新的解决方案  1.代码更有可读性  2.可以更方便的处理多种异步操作组合问题  3.promise 本身就是个构造函数  4.解决了回调函数多层嵌套的问题,但是还是需要通过回调函数的方式获取异步操作的数据 ES7  async$awiat可以简化代码书写 async 是用来修饰函数，异步函数 awiat  只使用于async修饰过的函数">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/02/封装promise/">
+
+
+
+
+
+  <title>promise的封装 | 王相的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">王相的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">时间不负有心人</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/02/封装promise/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WangXiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王相的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">promise的封装</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-02T22:11:51+08:00">
+                2019-02-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="关于promise"><a href="#关于promise" class="headerlink" title="关于promise"></a>关于promise</h2><ul>
+<li>ES6提供的promise作为异步操作的新的解决方案<br>  1.代码更有可读性<br>  2.可以更方便的处理多种异步操作组合问题<br>  3.promise 本身就是个构造函数<br>  4.解决了回调函数多层嵌套的问题,但是还是需要通过回调函数的方式获取异步操作的数据</li>
+<li>ES7  async$awiat可以简化代码书写<ol>
+<li>async 是用来修饰函数，异步函数</li>
+<li>awiat  只使用于async修饰过的函数内部，用来修饰promise实例的，awiat后面所跟的代码必须能返回一个promise实例</li>
+</ol>
+</li>
+</ul>
+<h2 id="封装promise-发送请求基本步骤"><a href="#封装promise-发送请求基本步骤" class="headerlink" title="封装promise 发送请求基本步骤"></a>封装promise 发送请求基本步骤</h2><ul>
+<li>1.自定义一个函数 </li>
+<li>2.在自定义函数内部创建一个promise实例并return返回，new Promise时必须传入一个函数，参数是resolve，reject</li>
+<li>3.在promise 实例的函数内部  执行真正的异步操作<br>3.1 在真正的异步操作成功时调用resolve将成功的数据返回出去<br>3.2   reject 是将失败的数据返回出去</li>
+<li>4.真正使用的时候调用函数获取数据<br><strong>调用 fetch().then()then的前面返回的是promise对象</strong></li>
+<li><p>前面的.then中return的promise实例内部resolve或者reject出来的数据 可以在后面的.then中接收</p>
+<pre><code>function fetch(url){
+return new Promise(function(resolve,reject){    
+    $.ajax({
+    url:‘url’,
+    type:&apos;get&apos;,
+    success:function(data){
+        resolve(data)
+    }
+    error:function(err){
+        reject(err)
+    }
+    })
+})
+}
+fetch().then(function(res){
+console.log（res）
+}，function(err){
+console.log （err）
+})
+</code></pre></li>
+</ul>
+<h2 id="封装promise-读取文件"><a href="#封装promise-读取文件" class="headerlink" title="封装promise 读取文件"></a>封装promise 读取文件</h2><pre><code>const fs = require(&apos;fs&apos;)
+const path = require(&apos;path&apos;)
+
+ //1.定义一个函数
+function getContent(filename){
+ //2.在函数内部创建一个promise实例并返回
+return new Promise(function(resolve,reject){
+ //3.在promise实例内部执行真正的异步操作
+
+fs.rendFile(path.join(__dirname,filname),&apos;utf-8&apos;,(err,data)=&gt;{
+    if(!err){
+    //3.1 异步操作成功调用resolve将数据返回
+      resolve(data)
+}else{
+    //3.2 异步操作失败调用reject将数据返回
+    reject(err)
+}
+})
+})
+}
+</code></pre><p> 调用封装好的函数来读取文件</p>
+<pre><code>getContent(‘路径’).then(function(data){
+    //这里的data是promise实例内部hi用reaolve的数据返回
+    console.log(data)
+},function(err){
+    console.log(err)
+}
+})
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/20/使用Mint ui遇到的问题/" rel="next" title="Mint UI 使用过程遇到的问题">
+                <i class="fa fa-chevron-left"></i> Mint UI 使用过程遇到的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/12/vue/组件传值补充/" rel="prev" title="组件间的传值">
+                组件间的传值 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">WangXiang</p>
+              <p class="site-description motion-element" itemprop="description">时间不负有心人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于promise"><span class="nav-number">1.</span> <span class="nav-text">关于promise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装promise-发送请求基本步骤"><span class="nav-number">2.</span> <span class="nav-text">封装promise 发送请求基本步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装promise-读取文件"><span class="nav-number">3.</span> <span class="nav-text">封装promise 读取文件</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WangXiang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="注意点:   elementui 中的popover弹出层 想要修改每个div的背景色 需要在el-popover上 popper-class=’xxxx’来添加类 才会生效  隐藏组件 滚动条(原生的滚动条会有一条竖向线条 这个是隐藏了滚动条 内容自动撑开)  父级元素有没有设置固定高度 &amp;lt;div class=&amp;quot;search-item-box&amp;quot;&amp;gt;">
+<meta name="keywords" content="前端,web开发,php,vue,node,广交朋友,欢迎交流!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="elementui注意点">
+<meta property="og:url" content="http://yoursite.com/2019/07/15/Elementui/elementui注意点/index.html">
+<meta property="og:site_name" content="王相的个人博客">
+<meta property="og:description" content="注意点:   elementui 中的popover弹出层 想要修改每个div的背景色 需要在el-popover上 popper-class=’xxxx’来添加类 才会生效  隐藏组件 滚动条(原生的滚动条会有一条竖向线条 这个是隐藏了滚动条 内容自动撑开)  父级元素有没有设置固定高度 &amp;lt;div class=&amp;quot;search-item-box&amp;quot;&amp;gt;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-16T11:12:00.013Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="elementui注意点">
+<meta name="twitter:description" content="注意点:   elementui 中的popover弹出层 想要修改每个div的背景色 需要在el-popover上 popper-class=’xxxx’来添加类 才会生效  隐藏组件 滚动条(原生的滚动条会有一条竖向线条 这个是隐藏了滚动条 内容自动撑开)  父级元素有没有设置固定高度 &amp;lt;div class=&amp;quot;search-item-box&amp;quot;&amp;gt;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/15/Elementui/elementui注意点/">
+
+
+
+
+
+  <title>elementui注意点 | 王相的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">王相的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">时间不负有心人</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/15/Elementui/elementui注意点/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WangXiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王相的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">elementui注意点</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-15T10:42:04+08:00">
+                2019-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><p>注意点:</p>
+<p>  elementui 中的popover弹出层 想要修改每个div的背景色 需要在el-popover上 popper-class=’xxxx’来添加类 才会生效</p>
+</li>
+<li><p>隐藏组件 滚动条(原生的滚动条会有一条竖向线条 这个是隐藏了滚动条 内容自动撑开)</p>
+<ul>
+<li><p>父级元素有没有设置固定高度</p>
+<pre><code>&lt;div class=&quot;search-item-box&quot;&gt;
+        &lt;el-scrollbar&gt;
+             xxx内容区域
+        &lt;/el-scrollbar&gt;
+&lt;/div&gt;
+
+    .scroll-item-bar{
+        height: 680px;
+    }
+    .search-item-box .el-scrollbar__bar.is-vertical{
+        width:2px;
+
+    }
+    .search-item-box .el-scrollbar__bar.is-vertical&gt;div{
+        background: #A1A1A1
+    }
+</code></pre></li>
+</ul>
+</li>
+<li><p>dialog 弹出框设置动画效果</p>
+<pre><code>    @keyframes dialog-fade-in {
+    0% {
+    transform: translate3d(100%, 0, 0);
+    opacity: 0;
+    }
+    100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    }
+}
+
+@keyframes dialog-fade-out {
+    0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    }
+    100% {
+    transform: translate3d(100%, 0, 0);
+    opacity: 0;
+    }
+}
+</code></pre></li>
+<li><p>el-table表格</p>
+<p>  border 表示表格加上边框</p>
+<p>  鼠标经过 显示详细信息 show-overflow-tooltip 显示</p>
+<pre><code>&lt;el-table-column
+prop=&quot;cjjg&quot;
+label=&quot;采集机关&quot;
+width=&quot;180&quot;
+show-overflow-tooltip
+&gt;
+&lt;template slot-scope=&quot;scope&quot;&gt;
+    &lt;div class=&quot;cell&quot; :title=&quot;scope.row.cjjg&quot;&gt;{{scope.row.cjjg}}&lt;/div&gt;
+&lt;/template&gt;
+&lt;/el-table-column&gt;
+</code></pre></li>
+</ul>
+<p>  table 改变背景色 </p>
+<pre><code>/deep/  .el-table::before,.el-table::after {left: 0;bottom: 0;  width: 100%;height: 0px;}  
+/deep/ .el-table{ 
+    background: transparent !important;border:none!important;   //改变背景色
+    th, tr{ 
+        font-size:18px;background: transparent !important; color: #c0e7ff;text-align: center;
+        }
+    thead th, .el-table__expanded-cell { color: #4a90e2 !important;}
+    td,th.is-leaf{ border-bottom: 1px solid rgba(0, 5, 140, 0.6) !important;}  //改变下边框颜色
+    }
+/deep/ .el-table--enable-row-hover .el-table__body tr:hover &gt; td {background: #2e6581;} //鼠标经过背景色
+/deep/ .el-table__body tr.current-row &gt; td {background-color: rgba(4, 19, 147, 0.5);color: #c0e7ff;} //鼠标点击背景色
+</code></pre><p>el-scrollBar 自定义样式</p>
+<pre><code>.eventPrognosis-box ::-webkit-scrollbar {width:10px; height:5px; background-color:transparent;} /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+.eventPrognosis-box ::-webkit-scrollbar-track {background-color:#142B4F; border-radius:4px; } /*定义滚动条轨道 内阴影+圆角*/
+.eventPrognosis-box ::-webkit-scrollbar-thumb {background-color:#80BBCA; border-radius:6px;} /*定义滑块 内阴影+圆角*/
+ /deep/ .el-scrollbar__bar{   
+ &amp;.is-horizontal, &amp;.is-horizontal&gt; div,&amp;.is-vertical, &amp;.is-vertical&gt; div{ width: 0 !important;}  
+  /deep/ .el-scrollbar__wrap {overflow: hidden;margin: 0!important;} //去除自带的横轴纵轴的滚动条
+</code></pre><p> } </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/12/echarts/结合geojson散点图/" rel="next" title="散点 对应城市区域高亮">
+                <i class="fa fa-chevron-left"></i> 散点 对应城市区域高亮
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/15/echarts/高德地图/" rel="prev" title="高德地图">
+                高德地图 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">WangXiang</p>
+              <p class="site-description motion-element" itemprop="description">时间不负有心人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WangXiang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

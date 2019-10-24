@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="node day03npmNode包管理器 (Node Package Manager) npm init // 初始化项目 安装全局包: npm install -g i5ting_toc 安装完成之后就可以直接使用了, 所有的全局包都存放在: C:\Users\用户名\AppData\Roaming\npm 卸载全局包: npm uninstall -g i5ting_toc 安装项目中使用的">
+<meta name="keywords" content="前端,web开发,php,vue,node,广交朋友,欢迎交流!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="03 node.js Node包  http模块 nodemon工具的使用 基本的express服务器用法">
+<meta property="og:url" content="http://yoursite.com/2018/07/27/node/node day03/index.html">
+<meta property="og:site_name" content="王相的个人博客">
+<meta property="og:description" content="node day03npmNode包管理器 (Node Package Manager) npm init // 初始化项目 安装全局包: npm install -g i5ting_toc 安装完成之后就可以直接使用了, 所有的全局包都存放在: C:\Users\用户名\AppData\Roaming\npm 卸载全局包: npm uninstall -g i5ting_toc 安装项目中使用的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-20T14:50:34.441Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="03 node.js Node包  http模块 nodemon工具的使用 基本的express服务器用法">
+<meta name="twitter:description" content="node day03npmNode包管理器 (Node Package Manager) npm init // 初始化项目 安装全局包: npm install -g i5ting_toc 安装完成之后就可以直接使用了, 所有的全局包都存放在: C:\Users\用户名\AppData\Roaming\npm 卸载全局包: npm uninstall -g i5ting_toc 安装项目中使用的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/27/node/node day03/">
+
+
+
+
+
+  <title>03 node.js Node包  http模块 nodemon工具的使用 基本的express服务器用法 | 王相的个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">王相的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">时间不负有心人</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/27/node/node day03/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WangXiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王相的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">03 node.js Node包  http模块 nodemon工具的使用 基本的express服务器用法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-27T23:42:04+08:00">
+                2018-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="node-day03"><a href="#node-day03" class="headerlink" title="node day03"></a>node day03</h2><h3 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h3><p>Node包管理器 (Node Package Manager)</p>
+<pre><code>npm init // 初始化项目
+</code></pre><p>安装全局包:</p>
+<pre><code>npm install -g i5ting_toc
+</code></pre><p>安装完成之后就可以直接使用了, 所有的全局包都存放在:</p>
+<pre><code>C:\Users\用户名\AppData\Roaming\npm
+</code></pre><p>卸载全局包:</p>
+<pre><code>npm uninstall -g i5ting_toc
+</code></pre><p>安装项目中使用的包(本地包):</p>
+<pre><code>npm install jquery
+</code></pre><p>卸载本地包:</p>
+<pre><code>npm uninstall jquery
+</code></pre><p><strong>注意: 安装本地包之前一定要确定, 当前目录必须有合法的package.json文件, 如果没有该文件, 则需要执行 <code>npm init -y</code> 进行初始化</strong></p>
+<p>-D 参数: 将包安装到开发依赖, devDependencies节点下, 表示项目在开发阶段需要用到这些包, 上线后就不需要使用了</p>
+<p>install 可以简写为 i </p>
+<pre><code>npm i webpack -D
+</code></pre><p><strong>npm install</strong> : 将package.json中的dependencies和devDependencies节点的所有包都安装到本地</p>
+<pre><code>npm install
+</code></pre><p>简写:</p>
+<pre><code>npm i
+</code></pre><p>–production 参数: 用于安装项目上线所用到的依赖包, 开发依赖不安装</p>
+<pre><code>npm i --production
+</code></pre><h3 id="http模块"><a href="#http模块" class="headerlink" title="http模块"></a>http模块</h3><p>使用http模块可以用于创建服务器</p>
+<ol>
+<li><p>导入http模块</p>
+<pre><code>const http = require(&apos;http&apos;)
+</code></pre></li>
+<li><p>创建服务器对象</p>
+<pre><code>const server = http.createServer()
+</code></pre></li>
+<li><p>监听请求事件</p>
+<pre><code>server.on(&apos;request&apos;, (req, res) =&gt; {
+    // req 请求对象
+    // res 响应对象
+    res.end(&apos;hello world&apos;)
+})
+</code></pre></li>
+<li><p>启动服务器</p>
+<pre><code>server.listen(&apos;8080&apos;, &apos;127.0.0.1&apos;, () =&gt; {
+    // 启动成功的回调函数
+    console.log(&apos;服务器运行成功! http://127.0.0.1:8080&apos;)
+})
+</code></pre></li>
+</ol>
+<h3 id="乱码处理"><a href="#乱码处理" class="headerlink" title="乱码处理"></a>乱码处理</h3><p>直接通过end()方法返回数据, 浏览器会用默认的码表来解析数据, 所以如果返回中文会导致乱码问题, 需要在响应头中指定数据的编码格式</p>
+<pre><code>server.on(&apos;request&apos;, (req, res) =&gt; {
+    // 在end方法执行之前设置响应头
+    res.writeHeader(200, {
+        Content-Type: &apos;text/plain;charset=utf-8&apos;
+    })
+
+    // req 请求对象
+    // res 响应对象
+    res.end(&apos;hello world&apos;)
+})
+</code></pre><p>在request事件监听中, req对象可以获取到用户请求的路径:</p>
+<pre><code>req.url
+</code></pre><p>通过该属性可以用于判断用户请求的路径, 决定返回具体的内容</p>
+<h3 id="服务端渲染页面"><a href="#服务端渲染页面" class="headerlink" title="服务端渲染页面"></a>服务端渲染页面</h3><ol>
+<li><p>安装art-template</p>
+<pre><code>npm install art-template
+</code></pre></li>
+<li><p>导入art-template</p>
+<pre><code>const template = require(&apos;art-template&apos;)
+</code></pre></li>
+<li><p>当用户请求时, 使用template方法进行拼接模板, 最后通过res.end()方法响应拼接的HTML字符串给用户</p>
+<pre><code>server.on(&apos;request&apos;, (req, res) =&gt; {
+    if (req.url === &apos;/&apos;) {
+        let htmlStr = template(path.join(__dirname, &apos;./views/index.html&apos;), {name: &apos;xxx&apos;, age: 18})
+        res.end(htmlStr)
+    }
+})
+</code></pre></li>
+</ol>
+<h3 id="nodemon工具的使用"><a href="#nodemon工具的使用" class="headerlink" title="nodemon工具的使用"></a>nodemon工具的使用</h3><p>monitor: 监视器</p>
+<p>作用: 当服务器代码修改后自动重启服务器</p>
+<p>安装:</p>
+<pre><code>npm install nodemon -g
+</code></pre><p>使用:</p>
+<p>以前都是使用node运行js文件, 现在使用nodemon运行即可</p>
+<pre><code>nodemon 1.js
+</code></pre><p>开启以后无需再次关闭, 如果修改了1.js文件的代码, 将会自动重启</p>
+<h3 id="express"><a href="#express" class="headerlink" title="express"></a>express</h3><blockquote>
+<p>基于node的http模块进行的封装, 没有对原生方法进行覆盖, 而是扩展更方便更好用的api</p>
+</blockquote>
+<blockquote>
+<p>好用!</p>
+</blockquote>
+<p>基本的express服务器用法:</p>
+<ol>
+<li><p>安装express</p>
+<pre><code>npm install express -S
+</code></pre></li>
+<li><p>导入express</p>
+<pre><code>const express = require(&apos;express&apos;)
+</code></pre></li>
+<li><p>调用express()方法创建服务器对象</p>
+<pre><code>const app = express()
+</code></pre></li>
+<li><p>服务器对象可以通过 get/post 等等方法来监听客户端的不同方式的请求</p>
+<pre><code>app.get(&apos;/&apos;, (req, res) =&gt; {
+    // res.end() // 原生的http模块的响应方法
+    res.send() // express封装的高级方法, 直接处理了乱码问题
+})
+</code></pre></li>
+<li><p>调用listen()方法开启服务器</p>
+<pre><code>app.listen(3000, () =&gt; {
+    console.log(&apos;服务器启动成功! http://127.0.0.1:3000&apos;)
+})
+</code></pre></li>
+</ol>
+<h3 id="express的常用api"><a href="#express的常用api" class="headerlink" title="express的常用api"></a>express的常用api</h3><p><code>res.send()</code></p>
+<ol>
+<li>响应纯文本内容</li>
+<li>响应对象数据(最终会被转换为JSON字符串)</li>
+<li>响应二进制数据</li>
+</ol>
+<p><code>res.sendFile()</code></p>
+<ol>
+<li><p>响应静态资源</p>
+<p> 注意: 如果只传入一个参数, 必须传入绝对路径, 如果传入两个参数, 第一个参数就是相对于第二个参数的路径来识别的</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/27/node/node day05/" rel="next" title="05 body-parser解析post请求提交的数据">
+                <i class="fa fa-chevron-left"></i> 05 body-parser解析post请求提交的数据
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/28/node/node day04/" rel="prev" title="04 express托管静态资源 结合ejs   art-template模板引擎 router模块的抽取">
+                04 express托管静态资源 结合ejs   art-template模板引擎 router模块的抽取 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">WangXiang</p>
+              <p class="site-description motion-element" itemprop="description">时间不负有心人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#node-day03"><span class="nav-number">1.</span> <span class="nav-text">node day03</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#npm"><span class="nav-number">1.1.</span> <span class="nav-text">npm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http模块"><span class="nav-number">1.2.</span> <span class="nav-text">http模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#乱码处理"><span class="nav-number">1.3.</span> <span class="nav-text">乱码处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端渲染页面"><span class="nav-number">1.4.</span> <span class="nav-text">服务端渲染页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nodemon工具的使用"><span class="nav-number">1.5.</span> <span class="nav-text">nodemon工具的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#express"><span class="nav-number">1.6.</span> <span class="nav-text">express</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#express的常用api"><span class="nav-number">1.7.</span> <span class="nav-text">express的常用api</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WangXiang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
